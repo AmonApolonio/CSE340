@@ -1,6 +1,245 @@
-/******* Change Box Model ***************/
 *,
 *:before,
 *:after {
   box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #24305E;
+  --secondary-color: #00b3c6;
+  --accent-color: #F8F8F8;
+  --text-color: #333;
+  --light-text: #F8F8F8;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: var(--text-color);
+  background-image: url('/images/site/checkerboard.jpg');
+  background-repeat: repeat;
+}
+
+h1, h2, h3 {
+  font-weight: bold;
+  margin-top: 0.5em;
+}
+
+#wrapper {
+  max-width: 98%;
+  margin: 0 auto;
+  border: 5px solid var(--primary-color);
+  border-radius: 0px;
+  background-color: white;
+}
+
+#top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+}
+
+.siteName a {
+  font-size: 1.5em;
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: bold;
+}
+
+#tools a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+nav {
+  background-color: #333;
+}
+
+nav ul {
+  display: flex;
+  padding: 0.5em;
+  margin: 0;
+  list-style: none;
+  justify-content: space-around;
+}
+
+nav li {
+  margin: 0;
+  color: var(--light-text);
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--light-text);
+  font-weight: bold;
+  padding: 0.5em;
+}
+
+main {
+  padding: 1em;
+}
+
+#hero {
+  position: relative;
+  margin-bottom: 1em;
+}
+
+#hero img {
+  display: block;
+  width: 100%;
+}
+
+.hero-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1em;
+  color: var(--secondary-color);
+  background-color: rgba(255, 255, 255, 0.8);
+  max-width: 200px;
+}
+
+.hero-content h2 {
+  color: var(--secondary-color);
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.hero-content p {
+  margin: 0.3em 0;
+  color: var(--secondary-color);
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.action-button {
+  background-color: var(--secondary-color);
+  color: #000;
+  padding: 0.7em 1.5em;
+  text-decoration: none;
+  display: block;
+  margin-top: 1em;
+  border: none;
+  font-weight: bold;
+  width: fit-content;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+#main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+#upgrades {
+  margin-bottom: 2em;
+}
+
+#upgrades h2, #reviews h2 {
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 0.5em;
+}
+
+.upgrades-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1em;
+  margin-top: 1em;
+}
+
+.upgrade-item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.image-container {
+  background-color: var(--secondary-color);
+  padding: 0.5em;
+  border: 1px solid #333;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100px;
+}
+
+.upgrade-item img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.upgrade-item a {
+  display: block;
+  text-decoration: none;
+  color: var(--primary-color);
+  margin-top: 0.5em;
+  font-weight: bold;
+}
+
+#reviews ul {
+  padding-left: 1.5em;
+  list-style-type: disc;
+}
+
+#reviews li {
+  margin-bottom: 0.5em;
+}
+
+footer {
+  padding: 1em;
+  text-align: left;
+  font-size: 0.9em;
+}
+
+@media screen and (min-width: 768px) {
+  body {
+    background-image: url('/images/site/small_check.jpg');
+  }
+  
+  #wrapper {
+    max-width: 960px;
+  }
+
+  .siteName a {
+    font-size: 2em;
+  }
+
+  main {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  #main-content {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 2em;
+    margin-top: 2em;
+  }
+
+  #reviews {
+    flex: 1;
+  }
+
+  #upgrades {
+    flex: 1;
+  }
+
+  .upgrades-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .image-container {
+    max-width: 150px;
+    height: 150px;
+  }
 }
