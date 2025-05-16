@@ -201,6 +201,64 @@ footer {
   font-size: 0.9em;
 }
 
+/* Classification Grid Styles */
+.classification-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1em;
+  margin-top: 1em;
+}
+
+.classification-item {
+  border: 1px solid #ccc;
+  padding: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: white;
+}
+
+.classification-item img {
+  width: 100%;
+  height: 200px;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.vehicle-info {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vehicle-name {
+  font-size: 1.1em;
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+.vehicle-name:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+.vehicle-price {
+  font-weight: bold;
+  margin-top: 0.5em;
+}
+
+/* Media queries for responsive display */
+@media screen and (min-width: 576px) {
+  .classification-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media screen and (min-width: 768px) {
   body {
     background-image: url('/images/site/small_check.jpg');
@@ -241,5 +299,9 @@ footer {
   .image-container {
     max-width: 150px;
     height: 150px;
+  }
+
+  .classification-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
