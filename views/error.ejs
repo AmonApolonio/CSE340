@@ -1,0 +1,15 @@
+<section id="error-section" class="error-section">
+  <h1>Oops! Something went wrong.</h1>
+  <p>We're sorry, but an unexpected error has occurred.</p>
+  <% if (error && error.status) { %>
+    <p><strong>Error Code:</strong>
+      <%= error.status %>
+    </p>
+    <% } %>
+      <% if (error && error.message) { %>
+        <p><strong>Message:</strong>
+          <%= error.message %>
+        </p>
+        <% } %>
+          <a href="/" class="action-button">Return Home</a>
+</section>

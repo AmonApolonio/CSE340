@@ -1,0 +1,9 @@
+<% if (vehicle) { %>
+  <title><%= vehicle.inv_make %> <%= vehicle.inv_model %> Details</title>
+  <main id="vehicle-detail-main">
+    <h1><%= vehicle.inv_make %> <%= vehicle.inv_model %></h1>
+    <%- vehicleDetail %>
+  </main>
+<% } else { %>
+  <p>Vehicle not found.</p>
+<% } %>

@@ -135,6 +135,42 @@ main {
   gap: 1em;
 }
 
+#error-section {
+  max-width: 500px;
+  margin: 3em auto;
+  padding: 2em;
+  background: #fff3f3;
+  border: 1px solid #e0b4b4;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(200,0,0,0.05);
+}
+
+#error-section h1 {
+  color: #b00;
+  font-size: 2em;
+  margin-bottom: 0.5em;
+}
+
+#error-section p {
+  color: #333;
+  font-size: 1.1em;
+  margin-bottom: 1em;
+}
+
+#error-section .action-button {
+  background: #b00;
+  color: #fff;
+  padding: 0.7em 1.5em;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1em;
+  margin-top: 1em;
+  display: inline-block;
+}
+
 #upgrades {
   margin-bottom: 2em;
 }
@@ -252,7 +288,54 @@ footer {
   margin-top: 0.5em;
 }
 
-/* Media queries for responsive display */
+.vehicle-detail-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  align-items: center;
+  margin: 2em 0;
+}
+
+.vehicle-detail-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.vehicle-detail-info {
+  width: 100%;
+  max-width: 400px;
+  background: #f8f8f8;
+  padding: 1.5em;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.vehicle-detail-info h2 {
+  margin-top: 0;
+  color: var(--primary-color);
+  font-size: 1.5em;
+}
+
+.vehicle-detail-price {
+  font-size: 1.3em;
+  color: var(--secondary-color);
+  font-weight: bold;
+  margin: 1em 0 0.5em 0;
+}
+
+.vehicle-detail-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.vehicle-detail-list li {
+  margin-bottom: 0.7em;
+  font-size: 1.1em;
+}
+
 @media screen and (min-width: 576px) {
   .classification-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -303,5 +386,20 @@ footer {
 
   .classification-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .vehicle-detail-container {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .vehicle-detail-image {
+    flex: 1;
+    max-width: 400px;
+    margin-right: 2em;
+  }
+  .vehicle-detail-info {
+    flex: 1;
+    max-width: 400px;
   }
 }

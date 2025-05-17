@@ -12,6 +12,8 @@ const static = require("./routes/static")
 const inventoryRoute = require("./routes/inventoryRoute")
 const expressLayouts = require("express-ejs-layouts")
 const baseController = require("./controllers/baseController")
+const errorRoute = require("./routes/errorRoute")
+const utilities = require("./utilities/")
 
 /* ***********************
  * View Engine and Templates
@@ -28,6 +30,8 @@ app.use(static)
 app.get("/", baseController.buildHome)
 // Inventory routes
 app.use("/inv", inventoryRoute)
+// Error route
+app.use("/error", errorRoute)
 
 /* ***********************
  * Local Server Information
@@ -35,6 +39,18 @@ app.use("/inv", inventoryRoute)
  *************************/
 const port = process.env.PORT
 const host = process.env.HOST
+
+// Error handling middleware
+app.use(async (err, req, res, next) => {
+  const status = err.status || 500
+  let nav = await utilities.getNav()
+  res.status(status)
+  res.render("error", {
+    title: "Server Error",
+    error: err,
+    nav
+  })
+})
 
 /* ***********************
  * Log statement to confirm server operation
