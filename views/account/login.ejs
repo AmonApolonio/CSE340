@@ -1,11 +1,16 @@
 <%- include('../partials/head') %>
 <main>
   <div class="login-container">
-    <form class="login-form" action="/account/login" method="post">
+    <form class="login-form" id="loginForm" action="/account/login" method="post">
       <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
+      <input type="email" id="email" name="email" required value="<%= locals.email || '' %>">
       <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
+      <div class="password-container">
+        <input type="password" id="password" name="password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" title="Password must be at least 12 characters, contain a capital letter, a number, and a special character.">
+        <button type="button" id="togglePassword" aria-label="Show password">
+          <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M2.05 12C3.81 7.61 7.92 4.5 12 4.5s8.19 3.11 9.95 7.5c-1.76 4.39-5.87 7.5-9.95 7.5S3.81 16.39 2.05 12z"/></svg>
+        </button>
+      </div>
       <button type="submit">LOGIN</button>
     </form>
     <div class="signup-link">
@@ -17,6 +22,30 @@
     <% if (messages('info').length > 0) { %>
       <div class="flash-message info"><%= messages('info') %></div>
     <% } %>
+    <% if (errors) { %>
+      <ul class="notice error-message">
+        <% errors.array().forEach(error => { %>
+          <li><%= error.msg %></li>
+        <% }) %>
+      </ul>
+    <% } %>
   </div>
 </main>
 <link rel="stylesheet" href="/css/login.css">
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    const eyeIcon = document.getElementById('eyeIcon');
+    let isVisible = false;
+    togglePassword.addEventListener('click', function() {
+      isVisible = !isVisible;
+      passwordInput.setAttribute('type', isVisible ? 'text' : 'password');
+      if (isVisible) {
+        eyeIcon.innerHTML = '<circle cx="12" cy="12" r="3"/><path d="M2.05 12C3.81 7.61 7.92 4.5 12 4.5s8.19 3.11 9.95 7.5c-1.76 4.39-5.87 7.5-9.95 7.5S3.81 16.39 2.05 12z"/><line x1="4" y1="4" x2="20" y2="20"/>';
+      } else {
+        eyeIcon.innerHTML = '<circle cx="12" cy="12" r="3"/><path d="M2.05 12C3.81 7.61 7.92 4.5 12 4.5s8.19 3.11 9.95 7.5c-1.76 4.39-5.87 7.5-9.95 7.5S3.81 16.39 2.05 12z"/>';
+      }
+    });
+  });
+</script>
