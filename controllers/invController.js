@@ -17,6 +17,7 @@ invCont.buildByClassificationId = async function (req, res, next) {
       title: className + " vehicles",
       nav,
       grid,
+      errors: null
     })
   } catch (err) {
     next(err)
@@ -37,10 +38,11 @@ invCont.buildDetailByInvId = async function (req, res, next) {
         title: `${vehicle.inv_make} ${vehicle.inv_model} Details`,
         nav,
         vehicle,
-        vehicleDetail
+        vehicleDetail,
+        errors: null
       });
     } else {
-      res.status(404).render("./inventory/detail", { title: "Vehicle Not Found", nav, vehicle: null, vehicleDetail: null });
+      res.status(404).render("./inventory/detail", { title: "Vehicle Not Found", nav, vehicle: null, vehicleDetail: null, errors: null });
     }
   } catch (err) {
     next(err)

@@ -130,3 +130,12 @@ main {
 #togglePassword:hover {
   color: #4c96d7;
 }
+
+.error-message {
+  color: #e74c3c;
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  list-style-type: disc;
+  padding-left: 2rem;
+}
