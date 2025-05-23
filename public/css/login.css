@@ -16,6 +16,9 @@ main {
   align-items: center;
   border: 2px solid #bfc9d1;
 }
+.login-container h1 {
+  color: #fff;
+}
 .login-form {
   background: transparent;
   box-shadow: none;
@@ -86,4 +89,44 @@ main {
 .flash-message.info {
   background: #27ae60;
   color: #fff;
+}
+
+.password-container {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 0.7rem;
+  position: relative;
+}
+.password-container input {
+  flex: 1;
+  margin-bottom: 0;
+  padding-right: 2.2rem;
+}
+#togglePassword {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  color: #bfc9d1;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  height: 1.8rem;
+  width: 1.8rem;
+  box-shadow: none;
+}
+#togglePassword svg {
+  display: block;
+  width: 1.3em;
+  height: 1.3em;
+  pointer-events: none;
+}
+#togglePassword:hover {
+  color: #4c96d7;
 }
