@@ -76,4 +76,13 @@ Util.buildVehicleDetail = async function(vehicle) {
   return html;
 }
 
-module.exports = Util
+function handleErrors(fn) {
+  return function (req, res, next) {
+    Promise.resolve(fn(req, res, next)).catch(next);
+  };
+}
+
+module.exports = {
+  ...Util,
+  handleErrors
+};

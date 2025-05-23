@@ -1,0 +1,22 @@
+<%- include('../partials/head') %>
+<main>
+  <div class="login-container">
+    <form class="login-form" action="/account/login" method="post">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit">LOGIN</button>
+    </form>
+    <div class="signup-link">
+      No account? <a href="/account/register">Sign-up</a>
+    </div>
+    <% if (messages('error').length > 0) { %>
+      <div class="flash-message error"><%= messages('error') %></div>
+    <% } %>
+    <% if (messages('info').length > 0) { %>
+      <div class="flash-message info"><%= messages('info') %></div>
+    <% } %>
+  </div>
+</main>
+<link rel="stylesheet" href="/css/login.css">

@@ -10,6 +10,7 @@ const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
 const inventoryRoute = require("./routes/inventoryRoute")
+const accountRoute = require("./routes/accountRoute")
 const expressLayouts = require("express-ejs-layouts")
 const baseController = require("./controllers/baseController")
 const errorRoute = require("./routes/errorRoute")
@@ -53,6 +54,8 @@ app.use(static)
 app.get("/", baseController.buildHome)
 // Inventory routes
 app.use("/inv", inventoryRoute)
+// Account routes
+app.use("/account", accountRoute)
 // Error route
 app.use("/error", errorRoute)
 
