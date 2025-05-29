@@ -18,6 +18,17 @@
         </ul>
       </nav>
 
+      <h2>Manage Inventory</h2>      
+      <p>Select a classification from the list to see the items belonging to the classification.</p>
+      
+      <% if (locals.classificationList) { %>
+        <%- classificationList %>
+      <% } %>
+
+      <table id="inventoryDisplay"></table>
+      
+      <noscript>JavaScript must be enabled to use this page.</noscript>
+
       <% if (typeof showForm !== 'undefined' && showForm === 'add-inventory') { %>
         <%- include('add-inventory', { classificationList, errors, flash, sticky }) %>
       <% } else if (typeof showForm !== 'undefined' && showForm === 'add-classification') { %>
@@ -28,5 +39,6 @@
     <%- include('../partials/footer') %>
   </div>
   <script src="/js/flash-message.js"></script>
+  <script src="/js/inventory.js"></script>
 </body>
 </html>
