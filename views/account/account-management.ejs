@@ -13,5 +13,31 @@
       </ul>
       <% } %>
 
-        <p>You're logged in</p>
+        <h2>Welcome <%= locals.accountData.account_firstname %></h2>
+
+        <p>You're logged in as <%= locals.accountData.account_firstname %> <%= locals.accountData.account_lastname %></p>
+        <p>Account Type: <%= locals.accountData.account_type %></p>
+        
+        <p><a href="/account/update/<%= locals.accountData.account_id %>">Update Account Information</a></p>
+        
+        <% if (locals.accountData.account_type === 'Admin') { %>
+        <h2>Admin Functions</h2>
+        <h3>Update Account Type</h3>
+        <p>Use this form to change your account type for testing purposes.</p>
+        <form action="/account/update-type" method="post">
+          <input type="hidden" name="account_id" value="<%= locals.accountData.account_id %>">
+          <label for="account_type">Account Type:</label>
+          <select name="account_type" id="account_type">
+            <option value="Client" <%= locals.accountData.account_type === 'Client' ? 'selected' : '' %>>Client</option>
+            <option value="Employee" <%= locals.accountData.account_type === 'Employee' ? 'selected' : '' %>>Employee</option>
+            <option value="Admin" <%= locals.accountData.account_type === 'Admin' ? 'selected' : '' %>>Admin</option>
+          </select>
+          <button type="submit">Update Account Type</button>
+        </form>
+        <% } %>
+
+        <% if (locals.accountData.account_type === 'Admin' || locals.accountData.account_type === 'Employee') { %>
+        <h3>Inventory Management</h3>
+        <p><a href="/inv/">Go to Inventory Management</a></p>
+        <% } %>
 </main>
