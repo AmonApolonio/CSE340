@@ -63,13 +63,11 @@ invCont.buildManagement = async function (req, res, next) {
     if (flash && Object.keys(flash).length > 0) {
       const type = Object.keys(flash)[0];
       flashMessage = { message: flash[type][0], type };
-    }
-    res.render("./inventory/management", {
+    }    res.render("./inventory/management", {
       title: "Inventory Management",
       nav,
       flash: flashMessage,
-      classificationList,
-      layout: false
+      classificationList
     });
   } catch (err) {
     next(err);
@@ -87,14 +85,11 @@ invCont.buildAddClassification = async function (req, res, next) {
     if (flash && Object.keys(flash).length > 0) {
       const type = Object.keys(flash)[0];
       flashMessage = { message: flash[type][0], type };
-    }
-    res.render("./inventory/management", {
-      title: "Inventory Management",
+    }    res.render("./inventory/add-classification", {
+      title: "Add Classification",
       nav,
       flash: flashMessage,
-      showForm: "add-classification",
-      errors: [] ,
-      layout: false
+      errors: []
     });
   } catch (err) {
     next(err);
@@ -118,14 +113,11 @@ invCont.addClassification = async function (req, res, next) {
     if (allClassifications && allClassifications.rows.some(row => row.classification_name.toLowerCase() === classification_name.toLowerCase())) {
       errors.push({ msg: "A classification with this name already exists." });
     }
-    if (errors.length > 0) {
-      return res.render("./inventory/management", {
-        title: "Inventory Management",
+    if (errors.length > 0) {      return res.render("./inventory/add-classification", {
+        title: "Add Classification",
         nav,
         flash: null,
-        showForm: "add-classification",
-        errors,
-        layout: false
+        errors
       });
     }
     // Insert into DB
@@ -135,14 +127,11 @@ invCont.addClassification = async function (req, res, next) {
       req.flash("type", "success");
       res.redirect("/inv");
     } else {
-      errors.push({ msg: "Failed to add classification. Please try again." });
-      res.render("./inventory/management", {
-        title: "Inventory Management",
+      errors.push({ msg: "Failed to add classification. Please try again." });      res.render("./inventory/add-classification", {
+        title: "Add Classification",
         nav,
         flash: null,
-        showForm: "add-classification",
-        errors,
-        layout: false
+        errors
       });
     }
   } catch (err) {
@@ -162,16 +151,13 @@ invCont.buildAddInventory = async function (req, res, next) {
     if (flash && Object.keys(flash).length > 0) {
       const type = Object.keys(flash)[0];
       flashMessage = { message: flash[type][0], type };
-    }
-    res.render("./inventory/management", {
-      title: "Inventory Management",
+    }    res.render("./inventory/add-inventory", {
+      title: "Add Inventory",
       nav,
       flash: flashMessage,
-      showForm: "add-inventory",
       classificationList,
       errors: [],
-      sticky: {},
-      layout: false
+      sticky: {}
     });
   } catch (err) {
     next(err);
@@ -251,16 +237,12 @@ invCont.addInventory = async function (req, res, next) {
       inv_price,
       inv_miles,
       inv_color
-    });
+    });    
     if (result) {
-      req.flash('success', 'Inventory item added successfully!');
-      nav = await utilities.getNav(); // update nav
-      return res.render("./inventory/management", {
-        title: "Inventory Management",
-        nav,
-        flash: { message: 'Inventory item added successfully!', type: 'success' },
-        layout: false // Disable layout for management view
-      });
+      nav = await utilities.getNav();
+      req.flash("message", "Inventory item added successfully!");
+      req.flash("type", "success");
+      return res.redirect("/inv/");
     } else {
       return res.render("./inventory/add-inventory", {
         title: "Add Inventory",

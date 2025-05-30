@@ -1,15 +1,13 @@
-<link rel="stylesheet" href="/css/inventory.css">
-<main>
-  <h1>Add New Inventory Item</h1>
-  <p>Fill out the form below to add a new vehicle to the inventory. All fields are required.</p>
+<h1>Add New Inventory Item</h1>
+<p>Fill out the form below to add a new vehicle to the inventory. All fields are required.</p>
 
-  <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
-    <ul class="error-list">
-      <% errors.forEach(function(error) { %>
-        <li><%= error.msg %></li>
-      <% }) %>
-    </ul>
-  <% } %>
+<% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+  <ul class="error-list">
+    <% errors.forEach(function(error) { %>
+      <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+<% } %>
 
   <form id="add-inventory-form" action="/inv/add-inventory" method="post" novalidate>
     <label for="classificationList">Classification</label>
@@ -44,11 +42,9 @@
 
     <button type="submit">Add Inventory Item</button>
   </form>
-</main>
 
 <script>
-  
-const form = document.getElementById('add-inventory-form');
+  const form = document.getElementById('add-inventory-form');
 form.addEventListener('submit', function(e) {
   let valid = true;
   const requiredFields = [
@@ -65,8 +61,6 @@ form.addEventListener('submit', function(e) {
   });
   if (!valid) {
     e.preventDefault();
-    alert('Please fill out all fields correctly.');
-  }
+    alert('Please fill out all fields correctly.');  }
 });
 </script>
-<script src="/js/flash-message.js"></script>

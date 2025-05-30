@@ -1,25 +1,19 @@
-<link rel="stylesheet" href="/css/inventory.css">
+<h1>Add New Classification</h1>
+<p>Enter a new classification name. <strong>No spaces or special characters allowed.</strong></p>
 
-<main>
-  <h1>Add New Classification</h1>
-  <p>Enter a new classification name. <strong>No spaces or special characters allowed.</strong></p>
-
-  <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
-    <ul class="error-list">
-      <% errors.forEach(function(error) { %>
-        <li><%= error.msg %></li>
-      <% }) %>
-    </ul>
-  <% } %>
+<% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+  <ul class="error-list">
+    <% errors.forEach(function(error) { %>
+      <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+<% } %>
 
   <form id="add-classification-form" action="/inv/add-classification" method="post" novalidate>
     <label for="classification_name">Classification Name</label>
     <input type="text" id="classification_name" name="classification_name" pattern="^[A-Za-z0-9]+$" required maxlength="30" title="No spaces or special characters allowed">
-    <button type="submit">Add Classification</button>
-  </form>
-</main>
+    <button type="submit">Add Classification</button>  </form>
 
-<script src="/js/flash-message.js"></script>
 <script>
 const form = document.getElementById('add-classification-form');
 form.addEventListener('submit', function(e) {
