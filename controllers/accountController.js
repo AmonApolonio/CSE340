@@ -226,11 +226,14 @@ async function updateAccountType(req, res, next) {
   const { account_id, account_type } = req.body
   const result = await accountModel.updateAccountType(account_id, account_type)
   if (result) {
-    req.flash("notice", "Account type updated successfully.")
+    // Clear JWT cookie to force a logout so permissions are reloaded
+    res.clearCookie("jwt")
+    req.flash("notice", "Account type updated successfully. Please log in again for the changes to take effect.")
+    return res.redirect("/account/login")
   } else {
     req.flash("notice", "Update failed.")
+    return res.redirect("/account/")
   }
-  res.redirect("/account/")
 }
 
 /* ****************************************
