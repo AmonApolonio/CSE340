@@ -64,6 +64,32 @@ button[type="submit"] {
   font-weight: bold;
 }
 
+button[type="submit"]:disabled {
+  background: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.button-message {
+  font-size: 0.9em;
+  margin-top: 0.5em;
+  padding: 0.5em;
+  border-radius: 4px;
+  background-color: #f5f5f5;
+  color: #666;
+}
+
+.button-message.error {
+  background-color: #ffebee;
+  color: #b71c1c;
+}
+
+.button-message.success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
 /* Inventory Management Navigation */
 .inventory-management-nav {
   margin: 1em 0;
