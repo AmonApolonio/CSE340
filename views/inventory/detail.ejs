@@ -3,7 +3,127 @@
   <main id="vehicle-detail-main">
     <h1><%= vehicle.inv_make %> <%= vehicle.inv_model %></h1>
     <%- vehicleDetail %>
+    
+    <div class="vehicle-reviews-section">
+      <div class="reviews-header">
+        <h2>Customer Reviews</h2>
+        <% if (locals.loggedin) { %>
+          <a href="/reviews/add/<%= vehicle.inv_id %>" class="button">Write a Review</a>
+        <% } %>
+      </div>
+      
+      <% if (reviews && reviews.length > 0) { %>
+        <div class="reviews-summary">
+          <p><strong><%= reviews.length %> review<%= reviews.length > 1 ? 's' : '' %></strong></p>
+          <div class="rating-summary">
+            <div class="stars">
+              <% 
+                let totalRating = 0;
+                reviews.forEach(review => { totalRating += review.rating });
+                let avgRating = totalRating / reviews.length;
+              %>
+              <% for (let i = 1; i <= 5; i++) { %>
+                <span class="star <%= i <= avgRating ? 'filled' : '' %>">★</span>
+              <% } %>
+            </div>
+            <span class="avg-rating"><%= avgRating.toFixed(1) %> out of 5</span>
+          </div>
+        </div>
+        
+        <div class="reviews-preview">
+          <% reviews.slice(0, 2).forEach(review => { %>
+            <div class="review-item">
+              <div class="review-rating">
+                <% for (let i = 1; i <= 5; i++) { %>
+                  <span class="star <%= i <= review.rating ? 'filled' : '' %>">★</span>
+                <% } %>
+              </div>
+              <div class="review-author">
+                by <%= review.account_firstname %> <%= review.account_lastname.charAt(0) %>.
+              </div>
+              <div class="review-content">
+                <%= review.review_text %>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+        
+        <div class="view-all-reviews">
+          <a href="/reviews/vehicle/<%= vehicle.inv_id %>">View All Reviews</a>
+        </div>
+      <% } else { %>
+        <p class="no-reviews">No reviews yet for this vehicle.</p>
+        <% if (!locals.loggedin) { %>
+          <p><a href="/account/login">Log in</a> to write the first review!</p>
+        <% } %>
+      <% } %>
+    </div>
   </main>
 <% } else { %>
   <p>Vehicle not found.</p>
 <% } %>
+
+<style>
+  .vehicle-reviews-section {
+    margin-top: 2rem;
+    border-top: 1px solid #ddd;
+    padding-top: 1.5rem;
+  }
+  
+  .reviews-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .reviews-summary {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .rating-summary {
+    display: flex;
+    align-items: center;
+  }
+  
+  .stars {
+    margin-right: 0.5rem;
+  }
+  
+  .star {
+    color: #ddd;
+    font-size: 1.2rem;
+  }
+  
+  .star.filled {
+    color: #ffc107;
+  }
+  
+  .reviews-preview {
+    margin: 1rem 0;
+  }
+  
+  .review-item {
+    background-color: #f9f9f9;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+  }
+  
+  .review-author {
+    font-size: 0.9em;
+    margin: 0.25rem 0;
+  }
+  
+  .review-content {
+    margin-top: 0.5rem;
+  }
+  
+  .view-all-reviews {
+    margin-top: 1rem;
+    text-align: center;
+  }
+</style>

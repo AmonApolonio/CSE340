@@ -1,0 +1,63 @@
+<%- contentTitle %> 
+<%- messages() %>
+
+<div class="vehicle-reviews-container">
+  
+  <div class="vehicle-info-summary">
+    <img src="<%= vehicle.inv_thumbnail %>" alt="<%= vehicle.inv_make %> <%= vehicle.inv_model %>">
+    <div>
+      <h3><%= vehicle.inv_year %> <%= vehicle.inv_make %> <%= vehicle.inv_model %></h3>
+      <p class="vehicle-price">$<%= new Intl.NumberFormat('en-US').format(vehicle.inv_price) %></p>
+      <p><a href="/inv/detail/<%= vehicle.inv_id %>" class="button">Back to Vehicle Details</a></p>
+    </div>
+  </div>
+
+  <div class="reviews-list">
+    <% if (reviews && reviews.length > 0) { %>
+      <% let totalRating = 0 %>
+      <% reviews.forEach(review => { totalRating += review.rating }) %>
+      <div class="average-rating">
+        <h3>Average Rating: <%= (totalRating / reviews.length).toFixed(1) %> out of 5</h3>
+        <div class="stars">
+          <% for (let i = 1; i <= 5; i++) { %>
+            <span class="star <%= i <= (totalRating / reviews.length) ? 'filled' : '' %>">★</span>
+          <% } %>
+        </div>
+      </div>
+      
+      <% reviews.forEach(review => { %>
+        <div class="review-item">
+          <div class="review-header">
+            <div class="review-rating">
+              <% for (let i = 1; i <= 5; i++) { %>
+                <span class="star <%= i <= review.rating ? 'filled' : '' %>">★</span>
+              <% } %>
+            </div>
+            <div class="review-author">
+              by <%= review.account_firstname %> <%= review.account_lastname.charAt(0) %>.
+            </div>
+            <div class="review-date">
+              <%= new Date(review.review_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
+            </div>
+          </div>
+          <div class="review-content">
+            <%= review.review_text %>
+          </div>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <p class="no-reviews">No reviews yet for this vehicle.</p>
+    <% } %>
+  </div>
+
+  <% if (locals.loggedin) { %>
+    <div class="add-review-prompt">
+      <p>Have you driven this vehicle? Share your experience!</p>
+      <a href="/reviews/add/<%= vehicle.inv_id %>" class="button">Write a Review</a>
+    </div>
+  <% } else { %>
+    <div class="login-to-review-prompt">
+      <p><a href="/account/login">Log in</a> to write a review for this vehicle.</p>
+    </div>
+  <% } %>
+</div>

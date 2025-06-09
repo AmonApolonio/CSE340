@@ -11,6 +11,7 @@ const app = express()
 const static = require("./routes/static")
 const inventoryRoute = require("./routes/inventoryRoute")
 const accountRoute = require("./routes/accountRoute")
+const reviewRoute = require("./routes/reviewRoute")
 const expressLayouts = require("express-ejs-layouts")
 const baseController = require("./controllers/baseController")
 const errorRoute = require("./routes/errorRoute")
@@ -62,6 +63,8 @@ app.get("/", baseController.buildHome)
 app.use("/inv", inventoryRoute)
 // Account routes
 app.use("/account", accountRoute)
+// Review routes
+app.use("/reviews", reviewRoute)
 // Error route
 app.use("/error", errorRoute)
 

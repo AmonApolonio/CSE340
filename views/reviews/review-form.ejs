@@ -1,0 +1,89 @@
+<%- contentTitle %> 
+<%- messages() %>
+
+<% if (errors) { %>
+  <ul class="notice">
+    <% if (Array.isArray(errors)) { %>
+      <% errors.forEach(error => { %>
+        <li><%= error %></li>
+      <% }) %>
+    <% } else { %>
+      <li><%= errors %></li>
+    <% } %>
+  </ul>
+<% } %>
+
+<div class="review-form-container">
+  <h2><%= isEdit ? 'Edit' : 'Add' %> Review for <%= vehicle.inv_year %> <%= vehicle.inv_make %> <%= vehicle.inv_model %></h2>
+  
+  <div class="vehicle-info-summary">
+    <img src="<%= vehicle.inv_thumbnail %>" alt="<%= vehicle.inv_make %> <%= vehicle.inv_model %>">
+    <div>
+      <h3><%= vehicle.inv_year %> <%= vehicle.inv_make %> <%= vehicle.inv_model %></h3>
+      <p class="vehicle-price">$<%= new Intl.NumberFormat('en-US').format(vehicle.inv_price) %></p>
+    </div>
+  </div>
+
+  <form id="reviewForm" action="/reviews/<%= isEdit ? 'edit' : 'add-review' %>" method="post">
+    <% if (isEdit) { %>
+      <input type="hidden" name="review_id" value="<%= review.review_id %>">
+    <% } %>
+    <input type="hidden" name="inv_id" value="<%= vehicle.inv_id %>">
+    <input type="hidden" name="account_id" value="<%= locals.accountData.account_id %>">
+
+    <div class="form-group">
+      <label for="rating">Rating (1-5 stars):</label>
+      <div class="star-rating">
+        <% for (let i = 5; i >= 1; i--) { %>
+          <input type="radio" id="star<%= i %>" name="rating" value="<%= i %>" 
+                <%= (review && review.rating == i) ? 'checked' : '' %> required>
+          <label for="star<%= i %>" title="<%= i %> stars"><%= i %></label>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="review_text">Your Review:</label>
+      <textarea id="review_text" name="review_text" minlength="10" maxlength="1000" required><%= review ? review.review_text : '' %></textarea>
+      <p class="input-help">Minimum 10 characters, maximum 1000</p>
+    </div>
+
+    <div class="form-group">
+      <p class="moderation-notice">Note: Your review will be submitted for moderation before appearing publicly.</p>
+    </div>
+
+    <div class="form-group button-group">
+      <button type="submit"><%= isEdit ? 'Update Review' : 'Submit Review' %></button>
+      <a href="<%= isEdit ? '/reviews/user' : '/inv/detail/' + vehicle.inv_id %>" class="button button-cancel">Cancel</a>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.getElementById('reviewForm').addEventListener('submit', function(e) {
+    let rating = document.querySelector('input[name="rating"]:checked');
+    let review_text = document.getElementById('review_text').value;
+    let valid = true;
+    let errors = [];
+    
+    if (!rating) {
+      errors.push('Please select a rating');
+      valid = false;
+    }
+    
+    if (review_text.length < 10) {
+      errors.push('Review must be at least 10 characters long');
+      valid = false;
+    }
+    
+    if (review_text.length > 1000) {
+      errors.push('Review must not exceed 1000 characters');
+      valid = false;
+    }
+    
+    if (!valid) {
+      e.preventDefault();
+      alert(errors.join('\n'));
+    }
+  });
+</script>

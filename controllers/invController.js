@@ -33,16 +33,21 @@ invCont.buildDetailByInvId = async function (req, res, next) {
     const vehicle = await invModel.getVehicleByInvId(inv_id);
     let nav = await utilities.getNav();
     let vehicleDetail = await utilities.buildVehicleDetail(vehicle);
+    
+    const reviewModel = require("../models/review-model");
+    const reviews = await reviewModel.getReviewsByVehicle(inv_id);
+    
     if (vehicle) {
       res.render("./inventory/detail", {
         title: `${vehicle.inv_make} ${vehicle.inv_model} Details`,
         nav,
         vehicle,
         vehicleDetail,
+        reviews,
         errors: null
       });
     } else {
-      res.status(404).render("./inventory/detail", { title: "Vehicle Not Found", nav, vehicle: null, vehicleDetail: null, errors: null });
+      res.status(404).render("./inventory/detail", { title: "Vehicle Not Found", nav, vehicle: null, vehicleDetail: null, reviews: null, errors: null });
     }
   } catch (err) {
     next(err)

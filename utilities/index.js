@@ -159,6 +159,19 @@ Util.checkJWTToken = (req, res, next) => {
   }
  }
 
+/* ****************************************
+ * Get vehicle by ID
+ * *************************************** */
+Util.getVehicleById = async function(inv_id) {
+  try {
+    const data = await invModel.getVehicleByInvId(inv_id);
+    return data;
+  } catch (error) {
+    console.error("getVehicleById error:" + error);
+    return null;
+  }
+};
+
 module.exports = {
   ...Util,
   handleErrors
